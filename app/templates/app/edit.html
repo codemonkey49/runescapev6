@@ -1,0 +1,40 @@
+{% extends "base.html"%}
+
+{%block title%}
+{{tutorial.title}}
+{%endblock%}
+{%block body%}
+
+{%for i in components%}
+    
+    {%if i.componentType == "text" %}
+    
+        {{i.componentContent}}
+        
+    {%elif i.componentType == "image" %}
+    
+        <img src={{i.image}}>
+        <div caption>{{i.imageCaption}}</div>
+        image
+        
+    {%else%}
+    
+        que es esto :(
+        {{i.componentType}}
+        
+    {%endif%}
+    <br>
+{%endfor%}
+<br>
+{%for component,form in zipList%}
+    <form method="post" action={% url 'app:submit' primaryKey=component.id %} >
+    {% csrf_token %}
+    {{form}}
+     <button type="submit">Submit</button>
+    </form>
+    <br>
+    <br>
+    <br>
+{%endfor%}
+
+{%endblock%}

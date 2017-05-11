@@ -1,0 +1,17 @@
+{% extends "base.html"%}
+
+{%block title%}
+{{tutorial.title}}
+{%endblock%}
+
+{%block body%}
+
+{%for i in components%}
+
+<p>{{i.componentContent}}</p>
+
+{%endfor%}
+
+<a href={% url 'app:edit' tutorial=tutorial.title %}>edit {{tutorial.title}}</a>
+
+{%endblock%}
