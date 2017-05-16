@@ -12,6 +12,6 @@
 
 {%endfor%}
 
-<a href={% url 'app:edit' tutorial=tutorial.title %}>edit {{tutorial.title}}</a>
+<a href={% url 'app:edit' tutorial=tutorial.id %}>edit {{tutorial.title}}</a>
 
 {%endblock%}

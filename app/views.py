@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from forms import componentForm
-
+from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponseRedirect
 
 
@@ -20,7 +20,7 @@ def viewTutorial(request,tutorial):
     template="app/view.html"
     context={}
     
-    tutorial=tutorialModel.objects.get(title=tutorial)
+    tutorial=tutorialModel.objects.get(id=tutorial)
     context["tutorial"]=tutorial
     components=[]
     for i in tutorial.component.all().order_by("order"):
@@ -28,7 +28,8 @@ def viewTutorial(request,tutorial):
     context["components"]=components
     
     return render(request,template,context)
-    
+
+@staff_member_required    
 def editTutorial(request,tutorial):
     template="app/edit.html"
     context={}
@@ -43,8 +44,10 @@ def editTutorial(request,tutorial):
     #t1.save()
     #t1.component.add(c1,c2,)#c3)
     #t1.save()
-    
-    a=tutorial=tutorialModel.objects.get(title=tutorial)
+    try:
+        a=tutorial=tutorialModel.objects.get(id=tutorial)
+    except:
+        a=tutorialModel(title=tutorial)
     context["tutorial"]=a
     components=[]
     for i in a.component.all().order_by("order"):
@@ -66,11 +69,19 @@ def editTutorial(request,tutorial):
     
     
     return render(request,template,context)
-    
+@staff_member_required
+def addComponent(request,tutorial):
+        
+        component=componentModel(order=0)
+        component.save()
+        
+@staff_member_required    
 def editComponent(request,primaryKey):
-    
-    
-    component=componentModel.objects.filter(id=primaryKey)[0]
+    try:
+        component=componentModel.objects.filter(id=primaryKey)[0]
+    except:
+        component=componentModel(order=0)
+        component.save()
     
     if request.method=="POST":
         form = componentForm(request.POST,instance=component)

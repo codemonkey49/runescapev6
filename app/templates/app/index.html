@@ -6,7 +6,7 @@ links:
 <ul>
 {% for i in tutorials%}
     <li>
-    <a href={% url 'app:view' tutorial=i.title %}>{{i.title}}</a>
+    <a href={% url 'app:view' tutorial=i.id %}>{{i.title}}</a>
     </li>
 {%endfor%}
 </ul>
