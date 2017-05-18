@@ -15,6 +15,12 @@ nav {
     height: 100%;
     */
 }
+#search{
+    color: white;
+    padding-top: 0%;
+    padding-right: 5%;
+    float: right;
+}
 h1{
     padding-left: 5%;
 }

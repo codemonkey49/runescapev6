@@ -1,8 +1,8 @@
-from django.shortcuts import render
-from forms import componentForm
+from django.shortcuts import render,redirect
+from forms import componentForm, tutorialForm
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import HttpResponseRedirect
-
+from django.urls import reverse
 
 from models import *
 # Create your views here.
@@ -29,6 +29,25 @@ def viewTutorial(request,tutorial):
     
     return render(request,template,context)
 
+def addTutorial(request):
+    template="app/addTutorial.html"
+    context={}
+    if request.method=="POST":
+        form=tutorialForm(request.POST)
+        if form.is_valid():
+            instance=form.save(commit=False)
+            title=instance.title
+            instance.save()
+            tutorial=tutorialModel.objects.filter(title=title)[0]
+            return redirect(reverse('app:view', kwargs={'tutorial': tutorial.id}))
+        else:
+            print "form invalid?"
+    else:
+        form=tutorialForm()
+        context["form"]=form
+    
+    return render(request,template,context)
+    
 @staff_member_required    
 def editTutorial(request,tutorial):
     template="app/edit.html"
@@ -74,6 +93,10 @@ def addComponent(request,tutorial):
         
         component=componentModel(order=0)
         component.save()
+        tutorial=tutorialModel.objects.filter(id=tutorial)[0]
+        tutorial.component.add(component)
+        tutorial.save()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         
 @staff_member_required    
 def editComponent(request,primaryKey):
@@ -89,4 +112,11 @@ def editComponent(request,primaryKey):
             form.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     
-    
+def searchView(request):
+    template="app/search.html"
+    context={}
+    #searchTerm=request.POST
+    searchTerm= request.POST["searchParam"]
+    results=tutorialModel.objects.filter(title__contains=searchTerm)
+    context["results"]=results
+    return render(request,template,context)

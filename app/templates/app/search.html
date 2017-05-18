@@ -1,0 +1,10 @@
+{% extends "base.html"%}
+
+{% block title%} search results:{%endblock%}
+{%block body%}
+{%for i in results%}
+
+<a href={%url 'app:view' tutorial=i.id%}>{{i.title}}</a>
+{%endfor%}
+
+{%endblock%}

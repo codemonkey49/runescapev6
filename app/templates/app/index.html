@@ -2,7 +2,7 @@
 
 
 {%block body%}
-links:
+all tutorials:
 <ul>
 {% for i in tutorials%}
     <li>
@@ -10,4 +10,5 @@ links:
     </li>
 {%endfor%}
 </ul>
+<a href={% url 'app:addTutorial'%}>add new tutorial</a>
 {%endblock%}
