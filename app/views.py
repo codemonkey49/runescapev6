@@ -12,6 +12,9 @@ def index(request):
     
     tutorials=tutorialModel.objects.all()
     context["tutorials"]=tutorials
+    
+    tags=tagModel.objects.all()
+    context["tags"]=tags
         
     
     return render(request,template,context)
@@ -120,3 +123,17 @@ def searchView(request):
     results=tutorialModel.objects.filter(title__contains=searchTerm)
     context["results"]=results
     return render(request,template,context)
+
+def addTag(request,tag,tutorial):
+    
+    try:
+        tag=tagModel.objects.get(tag=tag)
+    except:
+        tag=tagModel(tag=tag)
+        tag.save(commit=False)
+        
+    tutorial=tutorialModel.objects.get(id=tutorial)
+    tag.tutorials.add(tutorial)
+    tag.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        

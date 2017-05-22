@@ -9,7 +9,8 @@ urlpatterns = [
     url(r"editComponent/(?P<primaryKey>\d+)",editComponent,name="submit"),
     url(r"addComponent/(?P<tutorial>\d+)",addComponent,name="addComponent"),
     url(r"^search/",searchView,name="search"),
-    url(r"^addTutorial/",addTutorial,name="addTutorial")
+    url(r"^addTutorial/",addTutorial,name="addTutorial"),
+    url(r"^addTag/(?P<tutorial>\d+)/(?P<tag>\w+)",addTag,name="addTag")
 
     #url(r"profile",profile,name="profile"),
 ]

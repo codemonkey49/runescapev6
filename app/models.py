@@ -24,3 +24,8 @@ class tutorialModel(models.Model):
     component=models.ManyToManyField(componentModel, blank=True,null=True)
     def __str__(self):              # __unicode__ on Python 2
         return self.title
+class tagModel(models.Model):
+    tag=models.CharField(max_length=100)
+    tutorials=models.ManyToManyField(tutorialModel)
+    def __str__(self):              # __unicode__ on Python 2
+        return self.tag

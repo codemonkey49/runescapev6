@@ -8,7 +8,21 @@ all tutorials:
     <li>
     <a href={% url 'app:view' tutorial=i.id %}>{{i.title}}</a>
     </li>
+    <br>
+    <br>
 {%endfor%}
 </ul>
+<br>
+<ul>
+    <div id=tags>
+<h1>tags:</h1>
+{% for i in tags%}
+    <li>
+    {{i}}
+    </li>
+    <br>
+{%endfor%}
+</ul>
+</div>
 <a href={% url 'app:addTutorial'%}>add new tutorial</a>
 {%endblock%}
