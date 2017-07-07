@@ -16,11 +16,11 @@ def index(request):
     
     dataPoints=[]
     dates=[]
-    if data:
-        for i in data:
-            dataPoints.append(i.price)
-            dates.append(str(i.date))
-        context["dataPoints"]=dataPoints
+    
+    #for i in data:
+    #    dataPoints.append(i.price)
+    #    dates.append(str(i.date))
+    #context["dataPoints"]=dataPoints
     context["dates"]=["it","worked"]
     
 
