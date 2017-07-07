@@ -1,28 +1,72 @@
-{% extends "base.html"%}
+{%extends "base.html"%}
+
 
 
 {%block body%}
-all tutorials:
-<ul>
-{% for i in tutorials%}
-    <li>
-    <a href={% url 'app:view' tutorial=i.id %}>{{i.title}}</a>
-    </li>
-    <br>
-    <br>
-{%endfor%}
-</ul>
-<br>
-<ul>
-    <div id=tags>
-<h1>tags:</h1>
-{% for i in tags%}
-    <li>
-    {{i}}
-    </li>
-    <br>
-{%endfor%}
-</ul>
-</div>
-<a href={% url 'app:addTutorial'%}>add new tutorial</a>
+<html>
+<head>
+<title>Highcharts Tutorial</title>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+   <script src="https://code.highcharts.com/highcharts.js"></script> 
+</head>
+<body>
+<div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
+<script language="JavaScript">
+$(document).ready(function() {
+   var title = {
+      text: "{{title}}"   
+   };
+   var subtitle = {
+      text: '{{subtitle}}'
+   };
+   var xAxis = {
+      categories: ['Jan',"moose"]
+   };
+   var yAxis = {
+      title: {
+         text: 'Temperature (\xB0C)'
+      },
+      plotLines: [{
+         value: 0,
+         width: 1,
+         color: '#808080'
+      }]
+   };   
+
+   var tooltip = {
+      valueSuffix: '\xB0C'
+   }
+
+   var legend = {
+      layout: 'vertical',
+      align: 'right',
+      verticalAlign: 'middle',
+      borderWidth: 0
+   };
+   
+   var series =  [
+      {
+         name: '{{itemID}}',
+         data: {{dataPoints}}
+      }
+      
+   ];
+   
+
+   var json = {};
+
+   json.title = title;
+   json.subtitle = subtitle;
+   json.xAxis = xAxis;
+   json.yAxis = yAxis;
+   json.tooltip = tooltip;
+   json.legend = legend;
+   json.series = series;
+
+   $('#container').highcharts(json);
+});
+</script>
+</body>
+</html>
 {%endblock%}
+

@@ -3,17 +3,12 @@
 <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}" />
 
 <html>
-    <header>{%block header%}tutorial site{%endblock%}</header>
+    <header>{%block header%}runescape v6{%endblock%}</header>
         <nav>
             <ul id=navList>
                 <li id=nav><a href={% url 'app:index'%}>home</a></li>
                 <li id=nav><a href="google.com">link2</a></li>
                 <li id=nav><a href="google.com">link3</a></li>
-                <li id=search>search:<form action={% url 'app:search'%} method="post">
-                    {% csrf_token %}
-                    <input type="text" name="searchParam"/>
-                    <input type="submit" value="Submit"/>
-                </form></li>
             </ul>
         </nav>
     <body>
