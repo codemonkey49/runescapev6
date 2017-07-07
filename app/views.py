@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 #https://www.tutorialspoint.com/highcharts/highcharts_configuration_syntax.htm
 #https://stackoverflow.com/questions/10563047/accessing-a-python-dictionary-in-javascript
-from models import *
+from app.models import *
 # Create your views here.
 def index(request):
     template="app/index.html"
